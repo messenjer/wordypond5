@@ -1,4 +1,7 @@
 <script setup>
+const { locale, locales, setLocale, t } = useI18n()
+const route = useRoute()
+
 useHead({
   meta: [
     { name: 'viewport', content: 'width=device-width, initial-scale=1' }
@@ -7,7 +10,7 @@ useHead({
     { rel: 'icon', href: '/favicon.ico' }
   ],
   htmlAttrs: {
-    lang: 'en'
+    lang: computed(() => locale.value)
   }
 })
 
@@ -21,7 +24,13 @@ useSeoMeta({
   ogDescription: description
 })
 
-const route = useRoute()
+const languageOptions = computed(() => [
+  locales.value.map(loc => ({
+    label: loc.name,
+    icon: loc.code === 'fr' ? 'i-circle-flags-fr' : loc.code === 'en' ? 'i-circle-flags-gb' : 'i-circle-flags-it',
+    onSelect: () => setLocale(loc.code)
+  }))
+])
 </script>
 
 <template>
@@ -44,26 +53,34 @@ const route = useRoute()
             :variant="route.path.includes('/weeks') ? 'solid' : 'ghost'"
             size="lg"
           >
-            📚 Weeks
+            📚 {{ $t('nav.weeks') }}
           </UButton>
           <UButton
             to="/weeks"
             :variant="route.path.includes('/exercises') ? 'solid' : 'ghost'"
             size="lg"
           >
-            🎮 Exercises
+            🎮 {{ $t('nav.exercises') }}
           </UButton>
           <UButton
             to="/weeks"
             :variant="route.path.includes('/sentences') ? 'solid' : 'ghost'"
             size="lg"
           >
-            ✨ Sentences
+            ✨ {{ $t('nav.sentences') }}
           </UButton>
         </nav>
       </template>
 
       <template #right>
+        <UDropdownMenu :items="languageOptions">
+          <UButton
+            icon="i-lucide-languages"
+            variant="ghost"
+            color="neutral"
+            :label="locale.toUpperCase()"
+          />
+        </UDropdownMenu>
         <UColorModeButton />
       </template>
     </UHeader>
@@ -76,7 +93,7 @@ const route = useRoute()
       <template #left>
         <p class="text-sm text-muted flex items-center gap-2">
           <span class="text-xl">🐸</span>
-          Built with ❤️ for learning • © {{ new Date().getFullYear() }}
+          {{ $t('footer.madeWith') }} • © {{ new Date().getFullYear() }}
         </p>
       </template>
     </UFooter>

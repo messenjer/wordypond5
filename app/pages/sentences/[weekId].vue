@@ -1,6 +1,7 @@
 <script setup lang="ts">
 const route = useRoute()
 const { getWeek } = useWeeks()
+const { t } = useI18n()
 
 const weekId = route.params.weekId as string
 const week = computed(() => getWeek(weekId))
@@ -61,7 +62,7 @@ const generateSentences = async () => {
     const generatedText = data.choices[0].message.content
     sentences.value = generatedText.split('\n').filter((s: string) => s.trim())
   } catch (err) {
-    error.value = err instanceof Error ? err.message : 'Failed to generate sentences'
+    error.value = err instanceof Error ? err.message : t('sentences.error')
     // Fallback to simple sentences
     sentences.value = week.value.words.slice(0, 5).map((word, index) => {
       const otherWord = week.value!.words[index + 1] || week.value!.words[0]
@@ -100,13 +101,13 @@ onMounted(() => {
         to="/weeks"
         class="text-primary hover:underline mb-2 inline-block"
       >
-        ← Back to Weeks
+        ← {{ $t('sentences.backToWeeks') }}
       </NuxtLink>
       <h1 class="text-4xl font-bold text-primary mb-2">
-        ✨ {{ week.title }} - AI Sentences
+        ✨ {{ week.title }} - {{ $t('sentences.title') }}
       </h1>
       <p class="text-lg text-muted">
-        Fun sentences using your vocabulary words
+        {{ $t('sentences.subtitle') }}
       </p>
     </div>
 
@@ -117,7 +118,7 @@ onMounted(() => {
     >
       <div class="text-center py-4">
         <p class="text-muted mb-4">
-          💡 Using demo mode. Add your OpenAI API key for AI-generated sentences.
+          💡 {{ $t('sentences.apiKey.demoMode') }}
         </p>
         <UButton
           v-if="!showApiKeyInput"
@@ -125,7 +126,7 @@ onMounted(() => {
           size="sm"
           @click="showApiKeyInput = true"
         >
-          Add API Key (Optional)
+          {{ $t('sentences.apiKey.addKey') }}
         </UButton>
         <div
           v-else
@@ -133,7 +134,7 @@ onMounted(() => {
         >
           <UInput
             v-model="apiKey"
-            placeholder="sk-..."
+            :placeholder="$t('sentences.apiKey.placeholder')"
             type="password"
             size="lg"
           />
@@ -142,14 +143,14 @@ onMounted(() => {
               size="sm"
               @click="generateSentences"
             >
-              Save & Generate
+              {{ $t('sentences.apiKey.saveGenerate') }}
             </UButton>
             <UButton
               variant="ghost"
               size="sm"
               @click="showApiKeyInput = false"
             >
-              Cancel
+              {{ $t('common.cancel') }}
             </UButton>
           </div>
         </div>
@@ -165,7 +166,7 @@ onMounted(() => {
         ✨
       </div>
       <p class="text-xl text-muted">
-        Generating magical sentences...
+        {{ $t('sentences.loading') }}
       </p>
     </div>
 
@@ -191,7 +192,7 @@ onMounted(() => {
           :loading="isLoading"
           @click="generateSentences"
         >
-          Generate New
+          {{ $t('sentences.generateNew') }}
         </UButton>
       </div>
 
@@ -214,7 +215,7 @@ onMounted(() => {
               variant="outline"
               @click="speakSentence(sentence)"
             >
-              Read Aloud
+              {{ $t('sentences.readAloud') }}
             </UButton>
           </div>
         </div>
@@ -224,7 +225,7 @@ onMounted(() => {
       <UCard class="mt-8">
         <template #header>
           <h3 class="text-lg font-bold">
-            📖 Your Vocabulary Words
+            📖 {{ $t('sentences.vocabularyWords') }}
           </h3>
         </template>
         <div class="flex flex-wrap gap-2">

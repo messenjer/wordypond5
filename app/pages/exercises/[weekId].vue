@@ -1,6 +1,7 @@
 <script setup lang="ts">
 const route = useRoute()
 const { getWeek } = useWeeks()
+const { t } = useI18n()
 
 const weekId = route.params.weekId as string
 const week = computed(() => getWeek(weekId))
@@ -28,12 +29,12 @@ const checkSpelling = () => {
   const currentWord = week.value.words[currentWordIndex.value]
   if (spellingInput.value.toLowerCase().trim() === currentWord.toLowerCase()) {
     spellingScore.value++
-    spellingFeedback.value = '✅ Correct!'
+    spellingFeedback.value = `✅ ${t('exercises.spelling.correct')}`
     setTimeout(() => {
       nextSpellingWord()
     }, 1500)
   } else {
-    spellingFeedback.value = '❌ Try again!'
+    spellingFeedback.value = `❌ ${t('exercises.spelling.tryAgain')}`
     setTimeout(() => {
       spellingFeedback.value = ''
     }, 1500)
@@ -48,7 +49,7 @@ const nextSpellingWord = () => {
     spellingInput.value = ''
     spellingFeedback.value = ''
   } else {
-    spellingFeedback.value = `🎉 Game complete! Score: ${spellingScore.value}/${week.value.words.length}`
+    spellingFeedback.value = `🎉 ${t('exercises.spelling.complete', { score: spellingScore.value, total: week.value.words.length })}`
   }
 }
 
@@ -138,9 +139,9 @@ const checkQuizAnswer = (answer: string) => {
 
   if (answer === question.correctAnswer) {
     quizScore.value++
-    quizFeedback.value = '✅ Correct!'
+    quizFeedback.value = `✅ ${t('exercises.quiz.correct')}`
   } else {
-    quizFeedback.value = `❌ Wrong! The answer was: ${question.correctAnswer}`
+    quizFeedback.value = `❌ ${t('exercises.quiz.wrong', { answer: question.correctAnswer })}`
   }
 
   setTimeout(() => {
@@ -149,7 +150,7 @@ const checkQuizAnswer = (answer: string) => {
       quizFeedback.value = ''
       selectedAnswer.value = ''
     } else {
-      quizFeedback.value = `🎉 Quiz complete! Score: ${quizScore.value}/${quizQuestions.value.length}`
+      quizFeedback.value = `🎉 ${t('exercises.quiz.complete', { score: quizScore.value, total: quizQuestions.value.length })}`
     }
   }, 2000)
 }
@@ -185,10 +186,10 @@ onMounted(() => {
         to="/weeks"
         class="text-primary hover:underline mb-2 inline-block"
       >
-        ← Back to Weeks
+        ← {{ $t('exercises.backToWeeks') }}
       </NuxtLink>
       <h1 class="text-4xl font-bold text-primary mb-2">
-        🎮 {{ week.title }} - Exercises
+        🎮 {{ week.title }} - {{ $t('exercises.title') }}
       </h1>
     </div>
 
@@ -199,21 +200,21 @@ onMounted(() => {
         :variant="currentGame === 'spelling' ? 'solid' : 'outline'"
         @click="currentGame = 'spelling'"
       >
-        🔤 Spelling
+        🔤 {{ $t('exercises.spelling.name') }}
       </UButton>
       <UButton
         size="lg"
         :variant="currentGame === 'memory' ? 'solid' : 'outline'"
         @click="currentGame = 'memory'"
       >
-        🃏 Memory
+        🃏 {{ $t('exercises.memory.name') }}
       </UButton>
       <UButton
         size="lg"
         :variant="currentGame === 'quiz' ? 'solid' : 'outline'"
         @click="currentGame = 'quiz'"
       >
-        📝 Quiz
+        📝 {{ $t('exercises.quiz.name') }}
       </UButton>
     </div>
 
@@ -224,15 +225,15 @@ onMounted(() => {
     >
       <div class="py-12">
         <h2 class="text-2xl font-bold mb-6">
-          Spelling Game
+          {{ $t('exercises.spelling.title') }}
         </h2>
 
         <div class="mb-6">
           <p class="text-lg text-muted mb-4">
-            Word {{ currentWordIndex + 1 }} of {{ week.words.length }}
+            {{ $t('exercises.spelling.wordOf', { current: currentWordIndex + 1, total: week.words.length }) }}
           </p>
           <p class="text-sm text-muted mb-4">
-            Score: {{ spellingScore }} / {{ week.words.length }}
+            {{ $t('common.score') }}: {{ spellingScore }} / {{ week.words.length }}
           </p>
 
           <UButton
@@ -241,13 +242,13 @@ onMounted(() => {
             class="mb-6"
             @click="speakWord(week.words[currentWordIndex])"
           >
-            🔊 Listen to the word
+            🔊 {{ $t('exercises.spelling.listen') }}
           </UButton>
 
           <div class="max-w-md mx-auto mb-4">
             <UInput
               v-model="spellingInput"
-              placeholder="Type the word..."
+              :placeholder="$t('exercises.spelling.placeholder')"
               size="xl"
               :disabled="spellingFeedback.includes('complete')"
               @keyup.enter="checkSpelling"
@@ -259,7 +260,7 @@ onMounted(() => {
             :disabled="!spellingInput.trim() || spellingFeedback.includes('complete')"
             @click="checkSpelling"
           >
-            Check
+            {{ $t('exercises.spelling.check') }}
           </UButton>
         </div>
 
@@ -276,11 +277,11 @@ onMounted(() => {
     <UCard v-if="currentGame === 'memory'">
       <div class="py-8">
         <h2 class="text-2xl font-bold mb-6 text-center">
-          Memory Game
+          {{ $t('exercises.memory.title') }}
         </h2>
 
         <p class="text-center text-muted mb-6">
-          Matches: {{ memoryScore }} / 5
+          {{ $t('exercises.memory.matches', { score: memoryScore }) }}
         </p>
 
         <div class="grid grid-cols-5 gap-4 max-w-3xl mx-auto">
@@ -307,12 +308,12 @@ onMounted(() => {
           v-if="memoryScore === 5"
           class="text-2xl font-bold text-center mt-8"
         >
-          🎉 You won! All pairs matched!
+          🎉 {{ $t('exercises.memory.won') }}
         </div>
 
         <div class="text-center mt-6">
           <UButton @click="initMemoryGame">
-            🔄 Restart
+            🔄 {{ $t('exercises.memory.restart') }}
           </UButton>
         </div>
       </div>
@@ -325,20 +326,20 @@ onMounted(() => {
     >
       <div class="py-12">
         <h2 class="text-2xl font-bold mb-6">
-          Quiz Game
+          {{ $t('exercises.quiz.title') }}
         </h2>
 
         <div v-if="currentQuizIndex < quizQuestions.length">
           <p class="text-lg text-muted mb-4">
-            Question {{ currentQuizIndex + 1 }} of {{ quizQuestions.length }}
+            {{ $t('exercises.quiz.questionOf', { current: currentQuizIndex + 1, total: quizQuestions.length }) }}
           </p>
           <p class="text-sm text-muted mb-6">
-            Score: {{ quizScore }} / {{ quizQuestions.length }}
+            {{ $t('common.score') }}: {{ quizScore }} / {{ quizQuestions.length }}
           </p>
 
           <div class="mb-8">
             <p class="text-xl font-bold mb-2">
-              Spell this word:
+              {{ $t('exercises.quiz.spellWord') }}
             </p>
             <UButton
               size="xl"
@@ -380,7 +381,7 @@ onMounted(() => {
             {{ quizFeedback }}
           </div>
           <UButton @click="initQuizGame">
-            🔄 Try Again
+            🔄 {{ $t('exercises.quiz.tryAgain') }}
           </UButton>
         </div>
       </div>

@@ -1,0 +1,136 @@
+{
+  "nav": {
+    "weeks": "Semaines",
+    "exercises": "Exercices",
+    "sentences": "Phrases"
+  },
+  "common": {
+    "cancel": "Annuler",
+    "delete": "Supprimer",
+    "create": "Créer",
+    "close": "Fermer",
+    "open": "Ouvrir",
+    "save": "Enregistrer",
+    "back": "Retour",
+    "next": "Suivant",
+    "previous": "Précédent",
+    "score": "Score",
+    "loading": "Chargement..."
+  },
+  "footer": {
+    "madeWith": "Fait avec ❤️ pour apprendre"
+  },
+  "home": {
+    "hero": {
+      "title": "Bienvenue sur WordyPond ! 🐸",
+      "description": "Apprends de nouveaux mots de vocabulaire chaque semaine avec des jeux amusants, des exercices et des phrases générées par l'IA !",
+      "getStarted": "Commencer"
+    },
+    "features": {
+      "title": "Apprends le vocabulaire de façon amusante !",
+      "description": "WordyPond rend l'apprentissage de nouveaux mots passionnant avec des jeux interactifs et des activités conçues pour les enfants.",
+      "weeklyWords": {
+        "title": "Mots hebdomadaires",
+        "description": "Les parents peuvent ajouter 10 nouveaux mots de vocabulaire chaque semaine pour que les enfants apprennent et pratiquent."
+      },
+      "interactiveGames": {
+        "title": "Jeux interactifs",
+        "description": "Joue à des jeux d'orthographe avec synthèse vocale, memory et quiz amusants pour maîtriser les nouveaux mots."
+      },
+      "aiSentences": {
+        "title": "Phrases IA",
+        "description": "Obtiens des exemples de phrases créatives utilisant tes mots de vocabulaire, générées par l'IA pour aider à la compréhension."
+      },
+      "trackProgress": {
+        "title": "Suivi des progrès",
+        "description": "Vois tes scores et suis tes progrès dans l'apprentissage des mots de vocabulaire de chaque semaine."
+      },
+      "kidFriendly": {
+        "title": "Pour les enfants",
+        "description": "Design coloré et ludique avec des émojis et des animations amusantes pour rendre l'apprentissage engageant et agréable."
+      },
+      "saveLocally": {
+        "title": "Sauvegarde locale",
+        "description": "Toutes tes semaines et tes mots sont sauvegardés dans ton navigateur, tu peux continuer où tu t'es arrêté à tout moment."
+      }
+    },
+    "recentWeeks": {
+      "title": "Tes semaines récentes",
+      "words": "mots",
+      "play": "Jouer",
+      "sentences": "Phrases",
+      "viewAll": "Voir toutes les semaines"
+    },
+    "cta": {
+      "title": "Prêt à commencer l'apprentissage ?",
+      "description": "Crée ta première semaine de vocabulaire et commence ton parcours d'apprentissage avec des jeux et des activités amusants !",
+      "createFirst": "Créer la première semaine"
+    }
+  },
+  "weeks": {
+    "title": "Mots hebdomadaires",
+    "subtitle": "Gère tes semaines de vocabulaire",
+    "addWeek": "Ajouter une semaine",
+    "noWeeks": "Aucune semaine pour le moment ! Crée ta première semaine de vocabulaire.",
+    "getStarted": "Commencer",
+    "playGames": "Jouer aux jeux",
+    "confirmDelete": "Supprimer \"{title}\" ?",
+    "modal": {
+      "title": "Ajouter une nouvelle semaine",
+      "weekTitle": "Titre de la semaine",
+      "weekTitlePlaceholder": "ex: Semaine 1, Animaux, Nourriture...",
+      "wordsRequired": "Mots (10 requis)",
+      "wordPlaceholder": "Mot {number}",
+      "createWeek": "Créer la semaine",
+      "enterAllWords": "Veuillez entrer exactement 10 mots !"
+    }
+  },
+  "exercises": {
+    "title": "Exercices",
+    "backToWeeks": "Retour aux semaines",
+    "spelling": {
+      "name": "Orthographe",
+      "title": "Jeu d'orthographe",
+      "wordOf": "Mot {current} sur {total}",
+      "listen": "Écouter le mot",
+      "placeholder": "Tape le mot...",
+      "check": "Vérifier",
+      "correct": "Correct !",
+      "tryAgain": "Réessaie !",
+      "complete": "Jeu terminé ! Score : {score}/{total}"
+    },
+    "memory": {
+      "name": "Memory",
+      "title": "Jeu de memory",
+      "matches": "Paires : {score} / 5",
+      "won": "Tu as gagné ! Toutes les paires sont trouvées !",
+      "restart": "Recommencer"
+    },
+    "quiz": {
+      "name": "Quiz",
+      "title": "Jeu de quiz",
+      "questionOf": "Question {current} sur {total}",
+      "spellWord": "Épelle ce mot :",
+      "correct": "Correct !",
+      "wrong": "Faux ! La réponse était : {answer}",
+      "complete": "Quiz terminé ! Score : {score}/{total}",
+      "tryAgain": "Réessayer"
+    }
+  },
+  "sentences": {
+    "title": "Phrases IA",
+    "subtitle": "Phrases amusantes utilisant tes mots de vocabulaire",
+    "backToWeeks": "Retour aux semaines",
+    "apiKey": {
+      "demoMode": "Mode démo. Ajoute ta clé API OpenAI pour des phrases générées par l'IA.",
+      "addKey": "Ajouter une clé API (Optionnel)",
+      "placeholder": "sk-...",
+      "saveGenerate": "Enregistrer et générer"
+    },
+    "loading": "Génération de phrases magiques...",
+    "error": "Erreur lors de la génération des phrases",
+    "generateNew": "Générer de nouvelles",
+    "readAloud": "Lire à voix haute",
+    "vocabularyWords": "Tes mots de vocabulaire"
+  }
+}

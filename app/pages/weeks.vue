@@ -1,5 +1,6 @@
 <script setup lang="ts">
 const { weeks, addWeek, deleteWeek } = useWeeks()
+const { t } = useI18n()
 
 const isOpen = ref(false)
 const newWeekTitle = ref('')
@@ -18,7 +19,7 @@ const handleSubmit = () => {
 
   const filteredWords = newWords.value.filter(word => word.trim())
   if (filteredWords.length !== 10) {
-    alert('Please enter exactly 10 words!')
+    alert(t('weeks.modal.enterAllWords'))
     return
   }
 
@@ -27,7 +28,7 @@ const handleSubmit = () => {
 }
 
 const confirmDelete = (id: string, title: string) => {
-  if (confirm(`Delete "${title}"?`)) {
+  if (confirm(t('weeks.confirmDelete', { title }))) {
     deleteWeek(id)
   }
 }
@@ -38,10 +39,10 @@ const confirmDelete = (id: string, title: string) => {
     <div class="flex items-center justify-between mb-8">
       <div>
         <h1 class="text-4xl font-bold text-primary mb-2">
-          📚 Weekly Words
+          📚 {{ $t('weeks.title') }}
         </h1>
         <p class="text-lg text-muted">
-          Manage your vocabulary weeks
+          {{ $t('weeks.subtitle') }}
         </p>
       </div>
       <UButton
@@ -49,7 +50,7 @@ const confirmDelete = (id: string, title: string) => {
         icon="i-lucide-plus"
         @click="openDialog"
       >
-        Add Week
+        {{ $t('weeks.addWeek') }}
       </UButton>
     </div>
 
@@ -61,13 +62,13 @@ const confirmDelete = (id: string, title: string) => {
         📖
       </div>
       <p class="text-xl text-muted mb-6">
-        No weeks yet! Create your first vocabulary week.
+        {{ $t('weeks.noWeeks') }}
       </p>
       <UButton
         size="lg"
         @click="openDialog"
       >
-        Get Started
+        {{ $t('weeks.getStarted') }}
       </UButton>
     </div>
 
@@ -114,7 +115,7 @@ const confirmDelete = (id: string, title: string) => {
               block
               color="primary"
             >
-              Play Games
+              {{ $t('weeks.playGames') }}
             </UButton>
             <UButton
               :to="`/sentences/${week.id}`"
@@ -123,7 +124,7 @@ const confirmDelete = (id: string, title: string) => {
               color="primary"
               variant="outline"
             >
-              Sentences
+              {{ $t('nav.sentences') }}
             </UButton>
           </div>
         </template>
@@ -132,7 +133,7 @@ const confirmDelete = (id: string, title: string) => {
 
     <UModal
       v-model:open="isOpen"
-      title="✨ Add New Week"
+      :title="$t('weeks.modal.title')"
       :ui="{ content: 'w-[calc(100vw-2rem)] max-w-3xl' }"
     >
       <template #body>
@@ -142,25 +143,25 @@ const confirmDelete = (id: string, title: string) => {
         >
           <div>
             <label class="block text-sm font-medium mb-2">
-              Week Title *
+              {{ $t('weeks.modal.weekTitle') }} *
             </label>
             <UInput
               v-model="newWeekTitle"
-              placeholder="e.g., Week 1, Animals, Food..."
+              :placeholder="$t('weeks.modal.weekTitlePlaceholder')"
               size="lg"
             />
           </div>
 
           <div>
             <label class="block text-sm font-medium mb-3">
-              Words (10 required) *
+              {{ $t('weeks.modal.wordsRequired') }} *
             </label>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
               <UInput
                 v-for="(_, index) in newWords"
                 :key="index"
                 v-model="newWords[index]"
-                :placeholder="`Word ${index + 1}`"
+                :placeholder="$t('weeks.modal.wordPlaceholder', { number: index + 1 })"
               />
             </div>
           </div>
@@ -175,12 +176,12 @@ const confirmDelete = (id: string, title: string) => {
             variant="ghost"
             @click="close"
           >
-            Cancel
+            {{ $t('common.cancel') }}
           </UButton>
           <UButton
             @click="handleSubmit"
           >
-            Create Week
+            {{ $t('weeks.modal.createWeek') }}
           </UButton>
         </div>
       </template>

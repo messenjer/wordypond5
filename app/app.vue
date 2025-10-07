@@ -1,21 +1,18 @@
 <script setup>
-const { locale, locales, setLocale, t } = useI18n()
+const { locale, locales, setLocale } = useI18n()
 const route = useRoute()
 
 useHead({
-  meta: [
-    { name: 'viewport', content: 'width=device-width, initial-scale=1' }
-  ],
-  link: [
-    { rel: 'icon', href: '/favicon.ico' }
-  ],
+  meta: [{ name: 'viewport', content: 'width=device-width, initial-scale=1' }],
+  link: [{ rel: 'icon', href: '/favicon.ico' }],
   htmlAttrs: {
     lang: computed(() => locale.value)
   }
 })
 
 const title = 'WordyPond - Learn Vocabulary Words'
-const description = 'A fun and interactive app for children to practice weekly vocabulary words with games and AI-generated sentences.'
+const description
+  = 'A fun and interactive app for children to practice weekly vocabulary words with games and AI-generated sentences.'
 
 useSeoMeta({
   title,
@@ -27,7 +24,12 @@ useSeoMeta({
 const languageOptions = computed(() => [
   locales.value.map(loc => ({
     label: loc.name,
-    icon: loc.code === 'fr' ? 'i-circle-flags-fr' : loc.code === 'en' ? 'i-circle-flags-gb' : 'i-circle-flags-it',
+    icon:
+      loc.code === 'fr'
+        ? 'i-circle-flags-fr'
+        : loc.code === 'en'
+          ? 'i-circle-flags-gb'
+          : 'i-circle-flags-it',
     onSelect: () => setLocale(loc.code)
   }))
 ])
@@ -53,21 +55,21 @@ const languageOptions = computed(() => [
             :variant="route.path.includes('/weeks') ? 'solid' : 'ghost'"
             size="lg"
           >
-            📚 {{ $t('nav.weeks') }}
+            📚 {{ $t("nav.weeks") }}
           </UButton>
           <UButton
             to="/weeks"
             :variant="route.path.includes('/exercises') ? 'solid' : 'ghost'"
             size="lg"
           >
-            🎮 {{ $t('nav.exercises') }}
+            🎮 {{ $t("nav.exercises") }}
           </UButton>
           <UButton
             to="/weeks"
             :variant="route.path.includes('/sentences') ? 'solid' : 'ghost'"
             size="lg"
           >
-            ✨ {{ $t('nav.sentences') }}
+            ✨ {{ $t("nav.sentences") }}
           </UButton>
         </nav>
       </template>
@@ -93,7 +95,7 @@ const languageOptions = computed(() => [
       <template #left>
         <p class="text-sm text-muted flex items-center gap-2">
           <span class="text-xl">🐸</span>
-          {{ $t('footer.madeWith') }} • © {{ new Date().getFullYear() }}
+          {{ $t("footer.madeWith") }} • © {{ new Date().getFullYear() }}
         </p>
       </template>
     </UFooter>

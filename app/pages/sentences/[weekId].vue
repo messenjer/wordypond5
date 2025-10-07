@@ -91,9 +91,15 @@ onMounted(() => {
 </script>
 
 <template>
-  <div v-if="week" class="container mx-auto p-6 max-w-4xl">
+  <div
+    v-if="week"
+    class="container mx-auto p-6 max-w-4xl"
+  >
     <div class="mb-8">
-      <NuxtLink to="/weeks" class="text-primary hover:underline mb-2 inline-block">
+      <NuxtLink
+        to="/weeks"
+        class="text-primary hover:underline mb-2 inline-block"
+      >
         ← Back to Weeks
       </NuxtLink>
       <h1 class="text-4xl font-bold text-primary mb-2">
@@ -105,20 +111,26 @@ onMounted(() => {
     </div>
 
     <!-- API Key Section -->
-    <UCard class="mb-6" v-if="!apiKey">
+    <UCard
+      v-if="!apiKey"
+      class="mb-6"
+    >
       <div class="text-center py-4">
         <p class="text-muted mb-4">
           💡 Using demo mode. Add your OpenAI API key for AI-generated sentences.
         </p>
         <UButton
           v-if="!showApiKeyInput"
-          @click="showApiKeyInput = true"
           variant="outline"
           size="sm"
+          @click="showApiKeyInput = true"
         >
           Add API Key (Optional)
         </UButton>
-        <div v-else class="max-w-md mx-auto space-y-2">
+        <div
+          v-else
+          class="max-w-md mx-auto space-y-2"
+        >
           <UInput
             v-model="apiKey"
             placeholder="sk-..."
@@ -126,10 +138,17 @@ onMounted(() => {
             size="lg"
           />
           <div class="flex gap-2 justify-center">
-            <UButton @click="generateSentences" size="sm">
+            <UButton
+              size="sm"
+              @click="generateSentences"
+            >
               Save & Generate
             </UButton>
-            <UButton @click="showApiKeyInput = false" variant="ghost" size="sm">
+            <UButton
+              variant="ghost"
+              size="sm"
+              @click="showApiKeyInput = false"
+            >
               Cancel
             </UButton>
           </div>
@@ -138,7 +157,10 @@ onMounted(() => {
     </UCard>
 
     <!-- Loading State -->
-    <div v-if="isLoading" class="text-center py-20">
+    <div
+      v-if="isLoading"
+      class="text-center py-20"
+    >
       <div class="text-6xl mb-4 animate-bounce">
         ✨
       </div>
@@ -148,19 +170,26 @@ onMounted(() => {
     </div>
 
     <!-- Error State -->
-    <UCard v-if="error" color="red" class="mb-6">
+    <UCard
+      v-if="error"
+      color="red"
+      class="mb-6"
+    >
       <p class="text-red-500">
         {{ error }}
       </p>
     </UCard>
 
     <!-- Sentences Display -->
-    <div v-if="!isLoading && sentences.length > 0" class="space-y-4">
+    <div
+      v-if="!isLoading && sentences.length > 0"
+      class="space-y-4"
+    >
       <div class="flex justify-end mb-4">
         <UButton
-          @click="generateSentences"
           icon="i-lucide-refresh-cw"
           :loading="isLoading"
+          @click="generateSentences"
         >
           Generate New
         </UButton>

@@ -114,7 +114,7 @@ const selectedAnswer = ref('')
 const initQuizGame = () => {
   if (!week.value) return
 
-  quizQuestions.value = week.value.words.map(word => {
+  quizQuestions.value = week.value.words.map((word) => {
     const otherWords = week.value!.words.filter(w => w !== word)
     const randomWords = otherWords.sort(() => Math.random() - 0.5).slice(0, 3)
     const options = [...randomWords, word].sort(() => Math.random() - 0.5)
@@ -176,9 +176,15 @@ onMounted(() => {
 </script>
 
 <template>
-  <div v-if="week" class="container mx-auto p-6 max-w-5xl">
+  <div
+    v-if="week"
+    class="container mx-auto p-6 max-w-5xl"
+  >
     <div class="mb-8">
-      <NuxtLink to="/weeks" class="text-primary hover:underline mb-2 inline-block">
+      <NuxtLink
+        to="/weeks"
+        class="text-primary hover:underline mb-2 inline-block"
+      >
         ← Back to Weeks
       </NuxtLink>
       <h1 class="text-4xl font-bold text-primary mb-2">
@@ -212,7 +218,10 @@ onMounted(() => {
     </div>
 
     <!-- Spelling Game -->
-    <UCard v-if="currentGame === 'spelling'" class="text-center">
+    <UCard
+      v-if="currentGame === 'spelling'"
+      class="text-center"
+    >
       <div class="py-12">
         <h2 class="text-2xl font-bold mb-6">
           Spelling Game
@@ -229,8 +238,8 @@ onMounted(() => {
           <UButton
             size="xl"
             icon="i-lucide-volume-2"
-            @click="speakWord(week.words[currentWordIndex])"
             class="mb-6"
+            @click="speakWord(week.words[currentWordIndex])"
           >
             🔊 Listen to the word
           </UButton>
@@ -240,21 +249,24 @@ onMounted(() => {
               v-model="spellingInput"
               placeholder="Type the word..."
               size="xl"
-              @keyup.enter="checkSpelling"
               :disabled="spellingFeedback.includes('complete')"
+              @keyup.enter="checkSpelling"
             />
           </div>
 
           <UButton
             size="lg"
-            @click="checkSpelling"
             :disabled="!spellingInput.trim() || spellingFeedback.includes('complete')"
+            @click="checkSpelling"
           >
             Check
           </UButton>
         </div>
 
-        <div v-if="spellingFeedback" class="text-2xl font-bold mt-6">
+        <div
+          v-if="spellingFeedback"
+          class="text-2xl font-bold mt-6"
+        >
           {{ spellingFeedback }}
         </div>
       </div>
@@ -291,7 +303,10 @@ onMounted(() => {
           </div>
         </div>
 
-        <div v-if="memoryScore === 5" class="text-2xl font-bold text-center mt-8">
+        <div
+          v-if="memoryScore === 5"
+          class="text-2xl font-bold text-center mt-8"
+        >
           🎉 You won! All pairs matched!
         </div>
 
@@ -304,7 +319,10 @@ onMounted(() => {
     </UCard>
 
     <!-- Quiz Game -->
-    <UCard v-if="currentGame === 'quiz'" class="text-center">
+    <UCard
+      v-if="currentGame === 'quiz'"
+      class="text-center"
+    >
       <div class="py-12">
         <h2 class="text-2xl font-bold mb-6">
           Quiz Game
@@ -325,8 +343,8 @@ onMounted(() => {
             <UButton
               size="xl"
               icon="i-lucide-volume-2"
-              @click="speakWord(quizQuestions[currentQuizIndex].word)"
               class="mb-6"
+              @click="speakWord(quizQuestions[currentQuizIndex].word)"
             >
               🔊 {{ quizQuestions[currentQuizIndex].word }}
             </UButton>
@@ -338,20 +356,26 @@ onMounted(() => {
               :key="option"
               size="xl"
               variant="outline"
-              @click="checkQuizAnswer(option)"
               :disabled="!!selectedAnswer"
               :color="selectedAnswer === option ? (option === quizQuestions[currentQuizIndex].correctAnswer ? 'green' : 'red') : 'primary'"
+              @click="checkQuizAnswer(option)"
             >
               {{ option }}
             </UButton>
           </div>
 
-          <div v-if="quizFeedback && !quizFeedback.includes('complete')" class="text-xl font-bold">
+          <div
+            v-if="quizFeedback && !quizFeedback.includes('complete')"
+            class="text-xl font-bold"
+          >
             {{ quizFeedback }}
           </div>
         </div>
 
-        <div v-if="quizFeedback.includes('complete')" class="space-y-6">
+        <div
+          v-if="quizFeedback.includes('complete')"
+          class="space-y-6"
+        >
           <div class="text-2xl font-bold">
             {{ quizFeedback }}
           </div>

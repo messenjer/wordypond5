@@ -28,7 +28,10 @@ const route = useRoute()
   <UApp>
     <UHeader class="border-b-4 border-primary/20">
       <template #left>
-        <NuxtLink to="/" class="flex items-center gap-2 font-bold text-xl">
+        <NuxtLink
+          to="/"
+          class="flex items-center gap-2 font-bold text-xl"
+        >
           <span class="text-3xl">🐸</span>
           <span class="text-primary">WordyPond</span>
         </NuxtLink>

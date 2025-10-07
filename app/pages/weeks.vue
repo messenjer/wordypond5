@@ -53,19 +53,28 @@ const confirmDelete = (id: string, title: string) => {
       </UButton>
     </div>
 
-    <div v-if="weeks.length === 0" class="text-center py-20">
+    <div
+      v-if="weeks.length === 0"
+      class="text-center py-20"
+    >
       <div class="text-6xl mb-4">
         📖
       </div>
       <p class="text-xl text-muted mb-6">
         No weeks yet! Create your first vocabulary week.
       </p>
-      <UButton size="lg" @click="openDialog">
+      <UButton
+        size="lg"
+        @click="openDialog"
+      >
         Get Started
       </UButton>
     </div>
 
-    <div v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div
+      v-else
+      class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+    >
       <UCard
         v-for="week in weeks"
         :key="week.id"
@@ -121,9 +130,16 @@ const confirmDelete = (id: string, title: string) => {
       </UCard>
     </div>
 
-    <UModal v-model:open="isOpen" title="✨ Add New Week" :ui="{ content: 'w-[calc(100vw-2rem)] max-w-3xl' }">
+    <UModal
+      v-model:open="isOpen"
+      title="✨ Add New Week"
+      :ui="{ content: 'w-[calc(100vw-2rem)] max-w-3xl' }"
+    >
       <template #body>
-        <form @submit.prevent="handleSubmit" class="space-y-6">
+        <form
+          class="space-y-6"
+          @submit.prevent="handleSubmit"
+        >
           <div>
             <label class="block text-sm font-medium mb-2">
               Week Title *

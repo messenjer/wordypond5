@@ -94,7 +94,11 @@ const { weeks } = useWeeks()
       </div>
 
       <div class="text-center mt-8">
-        <UButton to="/weeks" size="lg" variant="outline">
+        <UButton
+          to="/weeks"
+          size="lg"
+          variant="outline"
+        >
           View All Weeks
         </UButton>
       </div>
